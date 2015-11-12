@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cheatsheet</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      console.log("http://localhost:4321/{{ title }}");
+      var socket = io.connect("http://localhost:4321/{{ title }}");
+      socket.on('update', function(data) {
+        console.log(data);
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Cheatsheet</h1>
+    <p>Navigate to {{ url }}HOSTNAME to receive data from host</p>
+  </body>
+</html>

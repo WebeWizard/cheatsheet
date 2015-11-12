@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cheatsheet</title>
+    <script src="/socket.io/socket.io.js"></script>
+  </head>
+  <body>
+    <div id="cs"></div>
+    <script>
+      console.log("http://localhost:4321/{{ hostname }}");
+      var socket = io.connect("http://localhost:4321/{{ hostname }}");
+      socket.on('connect', function(data) {
+        console.log(data);
+        document.getElementById('cs').innerHTML = data;
+      });
+      socket.on('update', function(data) {
+        console.log(data);
+        document.getElementById('cs').innerHTML = data;
+      });
+    </script>
+  </body>
+</html>
