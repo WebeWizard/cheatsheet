@@ -5,7 +5,6 @@ cs = {
     # Add a new host
     addHost: (name) ->
       @.hosts[name] = {buffer: undefined} if !@.hosts[name]
-
 }
 
 module.exports = cs

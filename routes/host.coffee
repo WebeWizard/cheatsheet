@@ -1,5 +1,6 @@
 express = require 'express'
 router = express.Router()
+process = require 'child_process'
 
 cs = require '../cs'
 
@@ -17,13 +18,16 @@ router.get '/:hostname', (req,res,next) ->
     socket.emit 'update', text
   res.render 'host', {hostname: hostname}
 
-router.get '/:hostname/:buffer', (req,res,next) ->
+router.post '/:hostname', (req,res,next) ->
   hostname = req.params.hostname
   cs.addHost hostname if !cs.hosts[hostname]
-  buffer = req.params.buffer
-  res.send null
+  buffer = decodeURIComponent req.body.buffer
   cs.hosts[hostname].buffer = buffer
   hostSocket = req.io.of("/#{hostname}")
-  hostSocket.emit 'update', buffer
+  process.exec "man #{buffer}", (error, stdout, stderr) ->
+    console.log buffer
+    hostSocket.emit 'update', stdout
+    console.log error
+  res.send null
 
 module.exports = router
